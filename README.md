@@ -23,16 +23,16 @@ Now you can import the "tc" module anywhere in your C3 project to use tercontrol
 
 ## ADDITIONS
 
-	tc_printn macro.
+	printn macro.
 
-Just prints a newline character using the "tc_print()" function after the passed in text.
+Just prints a newline character using the "print()" function after the passed in text.
 
-	tc_printf, tc_printfn macros. 
+	printf, printfn macros. 
 
-They make use of the builtin C3 formatter from std::io to print like "printf" does, but using "tc_print()"! 
-tc_printfn just prints a newline character afterwards.
+They make use of the builtin C3 formatter from std::io to print like "printf" does, but using 
+"print()"! printfn just prints a newline character afterwards.
 
-	tc_print_at, tc_printn_at, tc_printf_at, tc_printfn_at macros.
+	print_at, printn_at, printf_at, printfn_at macros.
 
 Moves the cursor to the provided x and y, prints the provided string, and moves back to the current 
 cursor position.
@@ -41,12 +41,16 @@ cursor position.
 
 Currently, when setting the C3 optimization level beyond 0, everything breaks. Not sure why yet!
 
-The printf* macros all rely on the provided C3 formatter, so any changes to that will change how
-things are printed. (bit obvious but its important to keep in mind if updating C3 versions while working 
-on a project!)
+all functions from tc are imported without the "tc_" prefix. this is because when calling these functions
+in a project, you are already required to prefix the functions with "tc::", so it felt odd leaving the 
+old prefix in. Otherwise youd have to do "tc::tc_" for each function.
 
-For compilation, i uss gcc on windows. to install it i followed the guide for [vscode.](https://code.visualstudio.com/docs/cpp/config-mingw)
-for step 5 I chose option 3, tho you may need a different version. 
+The printf* macros all rely on the provided C3 formatter, so any changes to that will change how
+things are printed. (It may be obvious but its important to keep in mind if updating C3 versions while 
+working on a project!)
+
+For compilation, I use gcc on windows. to install it I followed the guide provided by [vscode.](https://code.visualstudio.com/docs/cpp/config-mingw)
+for step 5 I chose option 3, tho you may need a different version depending on your system & OS. 
 
 To change which C compiler c3c uses, add this line to the project.json:
 "cc": "gcc",
