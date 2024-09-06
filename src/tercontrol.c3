@@ -87,7 +87,7 @@ macro void printf(String format, args...){
 	formatter.vprintf(format, args)!!;
 }
 
-macro void printfn(String format, ...) => printf(format.concat("\n"), $vasplat());
+macro void printfn(String format, ...) => printf(format.concat("\n"), $vasplat);
 
 macro void print_at(int x, int y, ZString str){
 	IntPtr curX; 
@@ -105,8 +105,8 @@ macro void printf_at(int x, int y, String format, ...){
 	int curY;
 	get_cursor(&curX, &curY);
 	set_cursor(x, y);
-	printf(format, $vasplat());
+	printf(format, $vasplat);
 	set_cursor(curX, curY);
 }
 
-macro void printfn_at(int x, int y, String format, ...) => printf_at(x, y, format.concat("\n"), $vasplat());
+macro void printfn_at(int x, int y, String format, ...) => printf_at(x, y, format.concat("\n"), $vasplat);
