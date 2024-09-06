@@ -76,28 +76,18 @@ extern fn void print(ZString s) @extern("tc_print");
 extern fn int getch() @extern("tc_getch");
 
 //My Additions
-fn void! priv_printf(void* data @unused, char c) @private
-{
-	print((ZString) &c);
-}
+fn void! priv_putchar(void* data @unused, char c) @private => print((ZString) &c);
 
+macro void printn(ZString s) => print(s.concat("\n"));
+
+//Usage pulled from std::io::printf
 macro void printf(String format, args...){
 	std::io::Formatter formatter;
-	formatter.init(&priv_printf);
+	formatter.init(&priv_putchar);
 	formatter.vprintf(format, args)!!;
 }
 
-macro void printfn(String format, args...){
-	std::io::Formatter formatter;
-	formatter.init(&priv_printf);
-	formatter.vprintf(format, args)!!;
-	print("\n");
-}
-
-macro void printn(ZString s){
-	print(s);
-	print("\n");
-}
+macro void printfn(String format, ...) => printf(format.concat("\n"), $vasplat());
 
 macro void print_at(int x, int y, ZString str){
 	IntPtr curX; 
@@ -108,36 +98,15 @@ macro void print_at(int x, int y, ZString str){
 	set_cursor(curX, curY);
 }
 
-macro void printn_at(int x, int y, ZString str){
+macro void printn_at(int x, int y, ZString str) => print_at(x, y, str.concat("\n"));
+
+macro void printf_at(int x, int y, String format, ...){
 	int curX; 
 	int curY;
 	get_cursor(&curX, &curY);
 	set_cursor(x, y);
-	print(str);
-	print("\n");
+	printf(format, $vasplat());
 	set_cursor(curX, curY);
 }
 
-
-macro void printf_at(int x, int y, String format, args...){
-	int curX; 
-	int curY;
-	get_cursor(&curX, &curY);
-	set_cursor(x, y);
-	std::io::Formatter formatter;
-	formatter.init(&priv_printf);
-	formatter.vprintf(format, args)!!;
-	set_cursor(curX, curY);
-}
-
-macro void printfn_at(int x, int y, String format, args...){
-	int curX; 
-	int curY;
-	get_cursor(&curX, &curY);
-	set_cursor(x, y);
-	std::io::Formatter formatter;
-	formatter.init(&priv_printf);
-	formatter.vprintf(format, args)!!;
-	print("\n");
-	set_cursor(curX, curY);
-}
+macro void printfn_at(int x, int y, String format, ...) => printf_at(x, y, format.concat("\n"), $vasplat());

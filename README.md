@@ -34,12 +34,15 @@ tc_printfn just prints a newline character afterwards.
 
 	tc_print_at, tc_printn_at, tc_printf_at, tc_printfn_at macros.
 
-Moves the cursor to the provided x and y, prints the provided string, and moves back to the current cursor 
-position.
+Moves the cursor to the provided x and y, prints the provided string, and moves back to the current 
+cursor position.
 
 ## NOTES
 
 Currently, when setting the C3 optimization level beyond 0, everything breaks. Not sure why yet!
+
+The printf* macros all rely on the provided C3 formatter, so any changes to that will change how
+things are printed.
 
 ## DEPENDENCIES
 
