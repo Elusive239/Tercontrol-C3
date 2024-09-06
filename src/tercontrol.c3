@@ -98,3 +98,46 @@ macro void tc_printn(ZString s){
 	tc_print(s);
 	tc_print("\n");
 }
+
+macro void tc_print_at(int x, int y, ZString str){
+	IntPtr curX; 
+	IntPtr curY;
+	tc_get_cursor(&curX, &curY);
+	tc_set_cursor(x, y);
+	tc_print(str);
+	tc_set_cursor(curX, curY);
+}
+
+macro void tc_printn_at(int x, int y, ZString str){
+	IntPtr curX; 
+	IntPtr curY;
+	tc_get_cursor(&curX, &curY);
+	tc_set_cursor(x, y);
+	tc_print(str);
+	tc_print("\n");
+	tc_set_cursor(curX, curY);
+}
+
+
+macro void tc_printf_at(int x, int y, String format, args...){
+	IntPtr curX; 
+	IntPtr curY;
+	tc_get_cursor(&curX, &curY);
+	tc_set_cursor(x, y);
+	std::io::Formatter formatter;
+	formatter.init(&tc_priv_printf);
+	formatter.vprintf(format, args)!!;
+	tc_set_cursor(curX, curY);
+}
+
+macro void tc_printfn_at(int x, int y, String format, args...){
+	IntPtr curX; 
+	IntPtr curY;
+	tc_get_cursor(&curX, &curY);
+	tc_set_cursor(x, y);
+	std::io::Formatter formatter;
+	formatter.init(&tc_priv_printf);
+	formatter.vprintf(format, args)!!;
+	tc_print("\n");
+	tc_set_cursor(curX, curY);
+}

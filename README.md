@@ -10,7 +10,7 @@ tercontrol is normally used as a header only library, however I have converted i
 includes:
 	
 	main.c3 -> a test file that just lets you scroll around your terminal and see 
-	the coordinates of the mouse.
+	the coordinates of the cursor.
 
 	tercontrol.c3 -> the actual bindings!
 
@@ -31,6 +31,11 @@ Just prints a newline character using the "tc_print()" function after the passed
 
 They make use of the builtin C3 formatter from std::io to print like "printf" does, but using "tc_print()"! 
 tc_printfn just prints a newline character afterwards.
+
+	tc_print_at, tc_printn_at, tc_printf_at, tc_printfn_at macro.
+
+Moves the cursor to the provided x and y, prints the provided string, and moves back to the current cursor 
+position.
 
 ## NOTES
 
