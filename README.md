@@ -19,7 +19,7 @@ includes:
 1. Add the "tercontrol.c" file to your C3 project under "csources".
 2. Add the "tercontrol.c3" to your projects "src" folder.
 
-Now you can import the "tc3" module anywhere in your C3 project to use tercontrol!
+Now you can import the "tc" module anywhere in your C3 project to use tercontrol!
 
 ## ADDITIONS
 
@@ -32,7 +32,7 @@ Just prints a newline character using the "tc_print()" function after the passed
 They make use of the builtin C3 formatter from std::io to print like "printf" does, but using "tc_print()"! 
 tc_printfn just prints a newline character afterwards.
 
-	tc_print_at, tc_printn_at, tc_printf_at, tc_printfn_at macro.
+	tc_print_at, tc_printn_at, tc_printf_at, tc_printfn_at macros.
 
 Moves the cursor to the provided x and y, prints the provided string, and moves back to the current cursor 
 position.

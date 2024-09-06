@@ -1,6 +1,6 @@
 module tercontrolc3;
 import std::io;
-import tc3;
+import tc;
 
 fn int main(String[] args)
 {
@@ -9,14 +9,12 @@ fn int main(String[] args)
 	int y;
 	int maxX;
 	int maxY;
-	tc3::tc_enter_alt_screen();
-	tc3::tc_get_cols_rows(&maxX, &maxY);
+	tc::enter_alt_screen();
+	tc::get_cols_rows(&maxX, &maxY);
 	while(c != 'q'){
-		tc3::tc_clear_screen();
-		tc3::tc_set_cursor(0, 0);
-		tc3::tc_printf("x: %s, y: %s", x, y);
-		tc3::tc_set_cursor(x, y);
-		c = (char) tc3::tc_getch();
+		tc::clear_screen();
+		tc::printf_at(0, maxY-1, "x: %s, y: %s", x, y);
+		c = (char) tc::getch();
 		if(c == 's') y+=1;
 		if(c == 'w') y-=1;
 		if(c == 'd') x+=1;
@@ -26,9 +24,8 @@ fn int main(String[] args)
 		else if(x >= maxX)	{x = 0;}
 		if(y < 0) 			{y = maxY-1;}
 		else if(y >= maxY)	{y = 0;}
-		tc3::tc_set_cursor(x, y);
+		tc::set_cursor(x, y);
 	}
-
-	tc3::tc_exit_alt_screen();
+	tc::exit_alt_screen();
 	return 0;
 }
