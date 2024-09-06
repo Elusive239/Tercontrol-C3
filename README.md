@@ -42,7 +42,15 @@ cursor position.
 Currently, when setting the C3 optimization level beyond 0, everything breaks. Not sure why yet!
 
 The printf* macros all rely on the provided C3 formatter, so any changes to that will change how
-things are printed.
+things are printed. (bit obvious but its important to keep in mind if updating C3 versions while working 
+on a project!)
+
+For compilation, i uss gcc on windows. to install it i followed the guide for [vscode.](https://code.visualstudio.com/docs/cpp/config-mingw)
+for step 5 I chose option 3, tho you may need a different version. 
+
+To change which C compiler c3c uses, add this line to the project.json:
+"cc": "gcc",
+where gcc can be your specific C compiler.
 
 ## DEPENDENCIES
 
