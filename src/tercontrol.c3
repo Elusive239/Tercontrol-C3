@@ -76,7 +76,13 @@ extern fn void print(ZString s) @extern("tc_print");
 extern fn int getch() @extern("tc_getch");
 
 //My Additions
-fn void! priv_putchar(void* data @unused, char c) @private => print((ZString) &c);
+
+// thanks Christoffer L!
+fn void! priv_putchar(void* data @unused, char c) @private 
+{
+  char[2] ch = { c, 0 };
+  return print((ZString) &ch);
+}
 
 macro void printn(ZString s) => print(s.concat("\n"));
 
