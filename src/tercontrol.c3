@@ -84,7 +84,7 @@ fn void! priv_putchar(void* data @unused, char c) @private
   return print((ZString) &ch);
 }
 
-macro void printn(ZString s) => print(s.concat("\n"));
+macro void printn(ZString s) => print((ZString)s.str_view().concat("\n"));
 
 //Usage pulled from std::io::printf
 macro void printf(String format, args...){
@@ -96,15 +96,15 @@ macro void printf(String format, args...){
 macro void printfn(String format, ...) => printf(format.concat("\n"), $vasplat);
 
 macro void print_at(int x, int y, ZString str){
-	IntPtr curX; 
-	IntPtr curY;
+	int curX; 
+	int curY;
 	get_cursor(&curX, &curY);
 	set_cursor(x, y);
 	print(str);
 	set_cursor(curX, curY);
 }
 
-macro void printn_at(int x, int y, ZString str) => print_at(x, y, str.concat("\n"));
+macro void printn_at(int x, int y, ZString str) => print_at(x, y, (ZString)str.str_view().concat("\n"));
 
 macro void printf_at(int x, int y, String format, ...){
 	int curX; 

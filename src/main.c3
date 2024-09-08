@@ -14,6 +14,10 @@ fn int main(String[] args)
 	while(c != 'q'){
 		tc::clear_screen();
 		tc::printf_at(0, maxY-1, "x: %s, y: %s", x, y);
+		tc::printn("This is a test of printn!");
+		tc::print("This is a test of print!");
+		tc::printn_at(0,4 ,"This is a test of printn_at!");
+		tc::print_at(0,3 ,"This is a test of print_at!");
 		c = (char) tc::getch();
 		if(c == 's') y+=1;
 		if(c == 'w') y-=1;
