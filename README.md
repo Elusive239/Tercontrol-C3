@@ -21,16 +21,3 @@ Now you can import the "tc" module anywhere in your C3 project to use tercontrol
 ### tc_ prefixes
 all functions from tercontrol are imported without the "tc_" prefix. this is because when calling these 
 functions in a project, you are already required to prefix the functions with "tc::", so it felt odd leaving the old prefix in.
-
-_______
-
-## DEPENDENCIES
-
-### C
-[tercontrol](https://github.com/ZackeryRSmith/tercontrol.git) (Obviously...)
-_______
-
-
-### C3
-[std-lib](https://c3-lang.org/)
-_______
