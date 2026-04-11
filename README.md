@@ -1,69 +1,27 @@
-TERCONTROL C3 BINDINGS
+TERCONTROL C3 (Version 0.7.11) BINDINGS
 ====
 
 ## DESCRIPTION
 
-[Tercontrol](https://github.com/ZackeryRSmith/tercontrol.git) bindings in [C3](https://c3-lang.org/)! with some minor additions.
+[Tercontrol](https://github.com/ZackeryRSmith/tercontrol.git) bindings in [C3](https://c3-lang.org/)!
 
-tercontrol is normally used as a header only library, however I have converted it into a .c file for 
-compilations purposes and because C3 does not currently support compiling with header only files. it is located 
-here in [csources](/csource/tercontrol.c).
-
-includes:
-	
-	main.c3 -> a test file that just lets you scroll around your terminal and see 
-	the coordinates of the cursor.
-
-	tercontrol.c3 -> the actual bindings!
+Thanks Skunky for reminding me to update this!
 
 ## TO USE
 ### prerequisite
-Have a C compiler installed. (See [notes!](#compilation))
+You *must* have a C compiler installed!
 
-1. Add the "tercontrol.c" file to your C3 project under "csources".
-2. Add the "tercontrol.c3" to your projects "src" folder.
+1. Add the "tercontrol.c3l" folder to your C3 projects "lib" folder (or equivalent, see included project.json).
+2. Add "tc" to your project.json's list of dependencies!
 
 Now you can import the "tc" module anywhere in your C3 project to use tercontrol!
 
-## ADDITIONS
-
-	printn macro.
-
-Just prints a newline character using the "print()" function after the passed in text.
-
-	printf, printfn macros. 
-
-They make use of the builtin C3 formatter from std::io to print like "printf" does, but using 
-"print()"! printfn just prints a newline character afterwards.
-
-	print_at, printn_at, printf_at, printfn_at macros.
-
-Moves the cursor to the provided x and y, prints the provided string, and moves back to the current 
-cursor position.
-
-## NOTES
+## NOTE
 
 ### tc_ prefixes
 all functions from tercontrol are imported without the "tc_" prefix. this is because when calling these 
 functions in a project, you are already required to prefix the functions with "tc::", so it felt odd leaving the old prefix in.
-_______
 
-### printf formatting
-The printf* macros all rely on the provided C3 formatter, so any changes to that will change how
-things are printed. (It may be obvious but its important to keep in mind if updating C3 versions while 
-working on a project!)
-_______
-
-### compilation
-For compilation, I use gcc on windows. to install it I followed the guide provided by [vscode.](https://code.visualstudio.com/docs/cpp/config-mingw)
-
-For step 5 I chose option 3, tho you may need a different version depending on your system & OS. 
-
-To change which C compiler c3c uses, add this line to the project.json:
-
-"cc": "gcc",
-
-where gcc can be your specific C compiler.
 _______
 
 ## DEPENDENCIES
@@ -74,5 +32,5 @@ _______
 
 
 ### C3
-[std-lib](https://c3-lang.org/references/docs/stdlib_refcard/)
+[std-lib](https://c3-lang.org/)
 _______

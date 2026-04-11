@@ -1,7 +1,6 @@
 module tc;
-import std::io;
 
-def IntPtr = int*;
+alias IntPtr = int*;
 
 /**
 	CONSTANTS
@@ -51,8 +50,8 @@ const ZString INV  	= 	"\x1B[8m"; 			/* Invisible */
 	FUNCTIONS
 **/
 
-extern fn ZString color_id(uint cid, int l) @extern("tc_color_id");
-extern fn ZString rgb(int r, int g, int b, int l) @extern("tc_rgb");
+extern fn ZString intern_color_id(uint cid, int l) @extern("tc_color_id");
+extern fn ZString intern_rgb(int r, int g, int b, int l) @extern("tc_rgb");
 extern fn void get_cols_rows(IntPtr cols, IntPtr rows) @extern("tc_get_cols_rows");
 extern fn void hide_cursor() @extern("tc_hide_cursor");
 extern fn void show_cursor() @extern("tc_show_cursor");
@@ -75,44 +74,12 @@ extern fn void clear_from_cursor_to_bottom() @extern("tc_clear_from_cursor_to_bo
 extern fn void print(ZString s) @extern("tc_print");
 extern fn int getch() @extern("tc_getch");
 
-//My Additions
-
-// thanks Christoffer L!
-fn void! priv_putchar(void* data @unused, char c) @private 
+macro void rgb(int r, int g, int b, bool background = false)
 {
-  char[2] ch = { c, 0 };
-  return print((ZString) &ch);
+	tc::print(intern_rgb(r,g,b, background ? 0 : 1));
 }
 
-macro void printn(ZString s) => print((ZString)s.str_view().concat("\n"));
-
-//Usage pulled from std::io::printf
-macro void printf(String format, args...){
-	std::io::Formatter formatter;
-	formatter.init(&priv_putchar);
-	formatter.vprintf(format, args)!!;
+macro void color_id(uint cid, bool background = false)
+{
+	tc::print(intern_color_id(cid, background ? 0 : 1));
 }
-
-macro void printfn(String format, ...) => printf(format.concat("\n"), $vasplat);
-
-macro void print_at(int x, int y, ZString str){
-	int curX; 
-	int curY;
-	get_cursor(&curX, &curY);
-	set_cursor(x, y);
-	print(str);
-	set_cursor(curX, curY);
-}
-
-macro void printn_at(int x, int y, ZString str) => print_at(x, y, (ZString)str.str_view().concat("\n"));
-
-macro void printf_at(int x, int y, String format, ...){
-	int curX; 
-	int curY;
-	get_cursor(&curX, &curY);
-	set_cursor(x, y);
-	printf(format, $vasplat);
-	set_cursor(curX, curY);
-}
-
-macro void printfn_at(int x, int y, String format, ...) => printf_at(x, y, format.concat("\n"), $vasplat);
